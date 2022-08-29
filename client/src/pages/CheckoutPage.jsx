@@ -276,7 +276,7 @@ const CheckoutPage = () => {
           <div>
             <section className="checkout-section">
               <div className="left">
-                <h1>SHIPPING ADDRESS check 003</h1>
+                <h1>UPDATE SHIPPING ADDRESS </h1>
                 <div>
                   <form
                     className="checkout-form"
