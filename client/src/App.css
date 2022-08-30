@@ -201,7 +201,7 @@ header span:hover {
   position: relative;
 }
 .right-nav i {
-  color: rgb(27, 24, 24);
+  color: rgb(255, 255, 255);
   font-size: 17px;
   transition: 0.1s ease all;
 }
@@ -371,7 +371,21 @@ ul.pagination li.active {
 /* Pagination */
 
 /******************************************************** FEATURED CATEGORIES ********************************************************/
-
+.viewbtn {
+  font-size: 16px;
+  letter-spacing: 0.09rem;
+  border: none;
+  padding:.1rem 0.4rem;
+  background: rgb(0, 0, 0);
+  color: rgb(228, 228, 228);
+  transition: 0.1s ease all;
+  margin: 1rem;
+}
+.viewbtn:hover{
+  color:#35add9;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
 main.featured .featured {
   display: flex;
   flex-wrap: wrap;
@@ -432,6 +446,11 @@ section.card {
   letter-spacing: 0.08rem;
   /* margin-top: 0.4rem; */
 }
+.card-img a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .card-img img {
   height: 30vh;
 }
@@ -478,7 +497,6 @@ section.card {
 /******************************************************** PRODUCTS CATEGORIES *************************************************/
 
 .featured .products-header {
-  /* background: rgb(206, 129, 129); */
   width: 90vw;
   display: flex;
   justify-content: space-between;
@@ -486,32 +504,27 @@ section.card {
   padding: 0.3rem;
   text-transform: uppercase;
 }
-.products-header span {
-  /* font-weight: bold;
-  width:16rem;
-  cursor: pointer;
-  color: #818486; */
-}
+
 .products-header .filterList {
-  max-width: 16rem;
-  min-width: 13rem;
+  /* background-color:red; */
+  min-width: 15rem;
   padding: 0.3rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
-
-
+.filterList {
+  display: flex;
+  justify-content: space-around;
+  /* background: gray; */
+}
 
 .filterBtn {
-  padding: 0.3rem;
-  display: flex;
-  max-width: 16rem;
-  min-width: 6rem;
-  
+  width: 11rem;
+  min-width: 5rem;
+  padding: 0.2rem;
 }
 .filterBtn select {
-  max-width: 15rem;
-  min-width: 5.8rem;
+  width: 100%;
   height: 1.5rem;
 }
 .filterList span {
@@ -802,49 +815,40 @@ main.checkout-wrapper section .right button.enabled:hover {
 
 /******************************************* LOGIN AND SIGNUP SECTION********************************************************/
 main.Login-container {
-  /* border:2px solid red; */
   padding: 0px !important;
 }
 .Login-container .Account {
-  /* border:1px solid red; */
   height: auto;
   min-width: 20rem;
   max-width: 30rem;
   min-height: 22rem;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: 80vw; */
+
   padding: 0.5rem;
 }
 .Account .heading {
   margin: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.3rem;
-  /* background: #000; */
-  /* color:white */
 }
 .content .Account-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.Account-form input,
-.Account-form button {
-  margin: 1rem;
-}
+
 .Account-form input {
   border: 1px solid gray;
   outline: none;
+  margin: 1rem;
+
   /* border-radius: 20px; */
   padding: 0.6rem 1rem;
   background: transparent;
-  width: 100%;
   max-width: 20rem;
-  width:18.6rem;
+  width: 18.6rem;
 }
 .Account-form input::placeholder {
   color: rgb(49, 50, 50);
@@ -863,8 +867,8 @@ main.Login-container {
   color: rgb(228, 228, 228);
   transition: 0.1s ease all;
   max-width: 20rem;
-  width:18.6rem;
-
+  width: 18.6rem;
+  margin: 1rem;
 }
 .Account-form button:hover {
   letter-spacing: 0.2rem;

@@ -25,8 +25,7 @@ import Carousal from "../components/Carousal";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css"
-
+import "slick-carousel/slick/slick-theme.css";
 
 const title1 = "Swatches";
 const desc1 =
@@ -35,56 +34,54 @@ const desc1 =
 const title2 = "Specials";
 const desc2 =
   "We have some special edition shoes crafted for your trendy and special requirements";
-
+var authorisedUser = localStorage.getItem("authUser")
 const Home = () => {
- 
-
-  var settings = {  
+  var settings = {
     dots: true,
     // size:large
   };
 
   const contentStyle = {
-    height: '500px',
-    width:"100%",
-    textAlign: 'center',
-    objectFit: "cover",
-    borderRadius:"0px"
+    height: "500px",
+    width: "100%",
+    textAlign: "center",
+    objectFit: "cover", 
+    borderRadius: "0px",
   };
+  useEffect(() => {
+   console.log("HOMEPAGE RENDERRING")
+   console.log("authorisedUser--NOT WORKING WHEN LOGGED IN OR LOGGED OUT----",authorisedUser)
+  }, [])
+  const [authUser, setAuthUser] = useState({});
+  useEffect(() => {
+    setAuthUser(localStorage.getItem("authUser"));
+  }, [authUser]);
 
+  
 
   const [price, setPrice] = useState(true);
-  const [authUser, setAuthUser] = useState({});
 
-  useEffect(() => {
-   setAuthUser(localStorage.getItem("authUser"))
-  }, [authUser])
-  
 
   return (
     <>
       {/* not working */}
-      <Slider {...settings} style={{color:"red"}} >
-          <div>
-            <img src={img5} style={contentStyle}/>
-          </div>
-          <div>
-            <img src={img6} style={contentStyle} />
-            
-          </div>
-          <div>
-            <img src={img7} style={contentStyle} />
-            
-          </div>
-          <div>
-            <img src={img8} style={contentStyle} />
-            
-          </div>
-        </Slider>
-      
+      <Slider {...settings} style={{ color: "red" }}>
+        <div>
+          <img src={img5} style={contentStyle} />
+        </div>
+        <div>
+          <img src={img6} style={contentStyle} />
+        </div>
+        <div>
+          <img src={img7} style={contentStyle} />
+        </div>
+        <div>
+          <img src={img8} style={contentStyle} />
+        </div>
+      </Slider>
 
       {/* <Carousal /> */}
-      <br /><br />
+      <br />
       {/* <Banner title={title1} desc={desc1} image={banner1} /> */}
       {/* <Categories
         heading={"Featured Categories"}

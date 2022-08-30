@@ -10,15 +10,13 @@ const Products = () => {
   const dispatch = useDispatch();
   const productsState = useSelector((state) => state.getAllProductsReducer);
   const { products, loading, error } = productsState;
-  // const [data, setData] = useState(products);
   const [isLoading, setIsLoading] = useState(false);
-  // const a = dispatch(getAllProducts());
-
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
     dispatch(getAllProducts());
+   console.log("PRODUCTS PAGE RENDERRING")
 
     // setData(products);
     setTimeout(() => {

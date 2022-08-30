@@ -7,6 +7,8 @@ import { useDeleteMessage } from "./Testing/Hooks/useDeleteMessage";
 import { useToastMessage } from "./Testing/Hooks/useToastMessage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import "../node_modules/react-simple-navbar/src/lib/components/styles/index.css";
+
 
 const Header = () => {
   const openDeleteMessage = useDeleteMessage();
@@ -45,16 +47,11 @@ const Header = () => {
       <ToastContainer position="top-left" />
       {!getUser && (loginRedirect ? <Navigate to="/" /> : "")}
       {/* {loginRedirect ? <Navigate to="/" /> : ""} */}
+
+       {/* HEADER */}
+
       <header>
-        {/* <div className="logo">
-        <NavLink to="/">
-          iNOX-PANDA
-           warningModal(
-              "Invalid email or password",
-              "Please Provide valid Usernane and Password"
-            );
-        </NavLink>
-      </div> */}
+       
         <div className="  nav-links">
           <NavLink
             to="/"

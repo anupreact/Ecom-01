@@ -4,10 +4,11 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import cricket from "../../src/images/cricket.png";
+import Login from "./Login";
 
 
 const MyOrders = () => {
-  const authUser = localStorage.getItem("authUser");
+  const authUser1 = localStorage.getItem("authUser");
   const dispatch = useDispatch();
   // const cartState = useSelector((state) => state.cartReducer);
   // const { cartItems } = cartState;
@@ -16,26 +17,34 @@ const MyOrders = () => {
   const orderState = useSelector((state) => state.orderReducer);
   const { orderItems } = orderState;
   const [jsonData, setJsonData] = useState([]);
+  const [authUser, setAuthUser] = useState(localStorage.getItem("authUser"));
+  useEffect(() => {
+    console.log("MY-ORDERS PAGE RENDERRING")
+    setAuthUser(authUser1)
+    
+  }, [])
+  
 
   const [Target, setTarget] = useState({});
   const [Skeleto, setSkeleton] = useState(false);
 
+  
   useEffect(() => {
+    console.log(authUser);
     const fetchUsers = () => {
       axios.get("http://localhost:5000/users").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setJsonData(res.data);
       });
     };
-    console.log(authUser);
     fetchUsers();
   }, []);
 
   useEffect(() => {
     setSkeleton(true);
 
-    console.log("jsonData:", jsonData);
-    console.log(jsonData.find((x) => x.email === JSON.parse(authUser)));
+    // console.log("jsonData:", jsonData);
+    // console.log(jsonData.find((x) => x.email === JSON.parse(authUser)));
     setTarget(jsonData.find((x) => x.email === JSON.parse(authUser)));
 
     setTimeout(() => {
@@ -45,6 +54,7 @@ const MyOrders = () => {
 
   return (
     <>
+    {authUser ? "Authorised " : "not authorised"}
       {Skeleto ? (
         <Skeleton
           active
@@ -157,7 +167,9 @@ const MyOrders = () => {
             }
           />
         </>
-      )):"not authorised"
+      )):
+      <Login/>
+      // " NOT AUTHORISED"
     }
     </>
   );

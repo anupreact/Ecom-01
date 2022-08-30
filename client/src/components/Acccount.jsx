@@ -31,19 +31,18 @@ const Acccount = (props) => {
   const usersState = useSelector((state) => state.registerUserReducer);
   const loginState = useSelector((state) => state.loginReducer);
 
-  console.log(loginState);
-
-  console.log(usersState);
-
   const [loginRedirect, setLoginRedirect] = useState(false);
   const [registerRedirect, setRegisterRedirect] = useState(false);
   //   const [first, setfirst] = useState(second);
   const [formData, setFormData] = useState([]);
   const [jsonData, setJsonData] = useState([]);
   const [state, setState] = useState({
+    Name:"",
     email: "",
     password: "",
     confirmPassword: "",
+    orders:[],
+    address:""
   });
 
  
@@ -182,7 +181,6 @@ const Acccount = (props) => {
               ) : (
                 ""
               )}
-
               <input
                 type="text"
                 name="email"

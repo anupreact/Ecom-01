@@ -24,6 +24,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useDeleteMessage } from "../components/Testing/Hooks/useDeleteMessage";
 import { useWarningModal } from "../components/Testing/Hooks/useWarningModal";
 import Pagination from "../components/Pagination";
+import Login from "./Login";
 // import { SMTPClient } from 'emailjs';
 
 const key = "updatable";
@@ -37,7 +38,7 @@ const key = "updatable";
 // if(otherNumbers != '')
 // lastThree = ',' + lastThree;
 // var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-// console.log(res);
+// console.log(res);  
 
 // using function
 const toIndianCurrency = (num) => {
@@ -53,6 +54,7 @@ const toIndianCurrency = (num) => {
 
 const Cart = () => {
   // DECREMENT DELETE MODAL
+  const authUser1 = localStorage.getItem("authUser");
 
   const openDeleteMessage = useDeleteMessage();
   const warningModal = useWarningModal();
@@ -61,6 +63,13 @@ const Cart = () => {
   const [itemId, setItemId] = useState(null);
   const [notifyDelete, setNotifyDelete] = useState(false);
   const [pitems, setPitems] = useState([]);
+  const [authUser, setAuthUser] = useState(localStorage.getItem("authUser"));
+
+  useEffect(() => {
+    console.log("CART PAGE RENDERRING")
+   setAuthUser(authUser1)
+  }, [])
+  
 
   // CHECKOUT SPINNER
   const antIcon = (
@@ -116,7 +125,7 @@ const Cart = () => {
   }, []);
   // INITIAL LOADING SKELETON
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   // SUBTOTAL FOR CART FOOTER
   const subTotal = cartItems.reduce((x, item) => x + item.prices, 0);
@@ -129,7 +138,6 @@ const Cart = () => {
   }).format(subTotal);
 
   const ntos = subTotal.toString();
-  console.log(typeof ntos, ntos);
 
   const a = (str) => {
     var newString = "";
@@ -143,7 +151,6 @@ const Cart = () => {
   // REDUX
 
   const localdata = localStorage.getItem("cartitems");
-  console.log(localdata);
 
   // DELETE MODAL
   const deleteItem = (i) => {
@@ -192,144 +199,141 @@ const Cart = () => {
   // Email JS
   return (
     <>
-      {skeleton ? (
-        <div>
-          {/* <img src={tdloader} style={{color:"red" , margin:".7rem 50%" }} alt="loader" /> */}
-          <Skeleton
-            active
-            paragraph={{
-              rows: 10,
-            }}
-          />
-        </div>
-      ) : cartItems.length !== 0 ? (
-        <main className="cart">
-          <h2 style={{ textAlign: "center" }}>My Cart</h2>
-          
-          <br />
-          <div className="cart-head">
-            <p style={{ width: "200px" }}>Item </p>
-            <p style={{ width: "170px", textAlign: "end" }}>Description</p>
-            <p style={{ width: "170px", textAlign: "end" }}>Quantity</p>
-            <p style={{ width: "200px", textAlign: "center" }}>Price</p>
-            <p>Remove </p>
+      {authUser ? (
+        skeleton ? (
+          <div>
+            {/* <img src={tdloader} style={{color:"red" , margin:".7rem 50%" }} alt="loader" /> */}
+            <Skeleton
+              active
+              paragraph={{
+                rows: 10,
+              }}
+            />
           </div>
-          <hr />
-          {/* {notifyDelete ? (
-          <h3 style={{ textAlign: "center", color: "red" }}>
-            Product Deleted Successfully
-          </h3>
+        ) : cartItems.length !== 0 ? (
+          <main className="cart">
+            <h2 style={{ textAlign: "center" }}>My Cart</h2>
+            
+            <br />
+            <div className="cart-head">
+              <p style={{ width: "200px" }}>Item </p>
+              <p style={{ width: "170px", textAlign: "end" }}>Description</p>
+              <p style={{ width: "170px", textAlign: "end" }}>Quantity</p>
+              <p style={{ width: "200px", textAlign: "center" }}>Price</p>
+              <p>Remove </p>
+            </div>
+            <hr />
+           
+            <br />
+  
+            {cartItems.map((items) => {
+              // const { title , description ,price , quantity , id} = items
+  
+              return (
+                <div key={items.id}>
+                  <Modal
+                    title="Delete Item"
+                    visible={visible}
+                    onOk={() => deleteItem(itemId)}
+                    onCancel={hideModal}
+                    okText="Yes"
+                    cancelText="No"
+                    width="30vw"
+                    zIndex=".9"
+                  >
+                    Are You sure , You want to Delete this item
+                  </Modal>
+                  <section className="cart-item" key={items.id}>
+                    <div
+                      className="item-name"
+                      style={{
+                        border: "0px solid red",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "20%",
+                      }}
+                    >
+                      <img src={item} alt="" width={"100px"} />
+                      <p>
+                        {items.title} <br />
+                        <span style={{ color: "gray", fontSize: "12px" }}>
+                          EIECH0120245
+                        </span>
+                      </p>
+                    </div>
+                    <div style={{ width: "20%" }}>
+                      <p>{items.description}</p>
+                    </div>
+                    <div className="qty-container">
+                      <button onClick={() => handleDecrement(items)}> - </button>
+                      <span> {items.quantity} </span>
+                      <button
+                        onClick={() => handleIncrement(items)}
+                        // onClick={() => {
+                        //   dispatch(addToCart(items, items.quantity + 1));
+                        // }}
+                      >
+                        {" "}
+                        +{" "}
+                      </button>
+                    </div>
+                    {/* <p>{ items.price * items.quantity} INR</p> */}
+                    <p>{toIndianCurrency(items.price * items.quantity)}</p>
+                    <button className="remove-btn" onClick={() => remove(items)}>
+                      Delete
+                    </button>
+                  </section>
+                </div>
+              );
+            })}
+            {/* <Pagination products = {cartItems} getCurrentItem = {getCurrentItem}/> */}
+            <div className="cart-footer">
+              <div>Discount : {toIndianCurrency(199)}</div>
+              <div>Delivery : {toIndianCurrency(99)} </div>
+              <div>SubTotal : {toIndianCurrency(newSubTotal)} </div>
+              <div>Total : {toIndianCurrency(subTotal - 50 + 199)}</div>
+              <div className="btn-container">
+                <NavLink to="/checkout">
+  
+                <button
+                  className="checkout"
+                  value=""
+                >
+                  Checkout
+                </button>
+                </NavLink>
+              </div>
+  
+              <div
+                className="spinner-container"
+                style={{
+                  width: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {/* {checkout && (
+                  <Spin large indicator={antIcon} style={{ color: "green" }} />
+                )} */}
+              </div>
+            </div>
+          </main>
+        ) : cartItems.length === 0 ? (
+          <Result
+            status="404"
+            title="404"
+            subTitle="Sorry, Your Cart is Empty Currently"
+            extra={
+              <Link to="/products">
+                <Button type="primary">Continue Shopping</Button>
+              </Link>
+            }
+          />
         ) : (
           ""
-        )} */}
-          <br />
-
-          {cartItems.map((items) => {
-            // const { title , description ,price , quantity , id} = items
-
-            return (
-              <div key={items.id}>
-                <Modal
-                  title="Delete Item"
-                  visible={visible}
-                  onOk={() => deleteItem(itemId)}
-                  onCancel={hideModal}
-                  okText="Yes"
-                  cancelText="No"
-                  width="30vw"
-                  zIndex=".9"
-                >
-                  Are You sure , You want to Delete this item
-                </Modal>
-                <section className="cart-item" key={items.id}>
-                  <div
-                    className="item-name"
-                    style={{
-                      border: "0px solid red",
-                      display: "flex",
-                      alignItems: "center",
-                      width: "20%",
-                    }}
-                  >
-                    <img src={item} alt="" width={"100px"} />
-                    <p>
-                      {items.title} <br />
-                      <span style={{ color: "gray", fontSize: "12px" }}>
-                        EIECH0120245
-                      </span>
-                    </p>
-                  </div>
-                  <div style={{ width: "20%" }}>
-                    <p>{items.description}</p>
-                  </div>
-                  <div className="qty-container">
-                    <button onClick={() => handleDecrement(items)}> - </button>
-                    <span> {items.quantity} </span>
-                    <button
-                      onClick={() => handleIncrement(items)}
-                      // onClick={() => {
-                      //   dispatch(addToCart(items, items.quantity + 1));
-                      // }}
-                    >
-                      {" "}
-                      +{" "}
-                    </button>
-                  </div>
-                  {/* <p>{ items.price * items.quantity} INR</p> */}
-                  <p>{toIndianCurrency(items.price * items.quantity)}</p>
-                  <button className="remove-btn" onClick={() => remove(items)}>
-                    Delete
-                  </button>
-                </section>
-              </div>
-            );
-          })}
-          {/* <Pagination products = {cartItems} getCurrentItem = {getCurrentItem}/> */}
-          <div className="cart-footer">
-            <div>Discount : {toIndianCurrency(199)}</div>
-            <div>Delivery : {toIndianCurrency(99)} </div>
-            <div>SubTotal : {toIndianCurrency(newSubTotal)} </div>
-            <div>Total : {toIndianCurrency(subTotal - 50 + 199)}</div>
-            <div className="btn-container">
-              <NavLink to="/checkout">
-
-              <button
-                className="checkout"
-                value=""
-              >
-                Checkout
-              </button>
-              </NavLink>
-            </div>
-
-            <div
-              className="spinner-container"
-              style={{
-                width: "20px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              {/* {checkout && (
-                <Spin large indicator={antIcon} style={{ color: "green" }} />
-              )} */}
-            </div>
-          </div>
-        </main>
-      ) : cartItems.length === 0 ? (
-        <Result
-          status="404"
-          title="404"
-          subTitle="Sorry, Your Cart is Empty Currently"
-          extra={
-            <Link to="/products">
-              <Button type="primary">Continue Shopping</Button>
-            </Link>
-          }
-        />
-      ) : (
-        ""
-      )}
+        )
+      ) :<>NOT AUTHORISED <Login/></>}
+      
     </>
   );
 };

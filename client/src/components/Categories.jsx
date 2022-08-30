@@ -168,15 +168,23 @@ const Categories = (props) => {
   return (
     <>
       {/* <h2 style={{ padding: ".3rem", textAlign: "center" }}>SHOP</h2> */}
-        {mainHeading && (
-          <h2 style={{ padding: ".3rem", textAlign: "center" }}>SHOP</h2>
-        )}
+      {mainHeading && (
+        <h2 style={{ padding: ".3rem", textAlign: "center" }}>SHOP</h2>
+      )}
       <main className="featured">
-
         <div className="featured">
           <div className="products-header">
             {heading ? (
-              <span> {heading}</span>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  letterSpacing: ".1rem",
+                  fontSize: "1rem",
+                }}
+              >
+                {" "}
+                {heading}
+              </span>
             ) : filterOptions == true ? (
               <div className="filterList">
                 {filterListing.map((items) => {
@@ -236,7 +244,10 @@ const Categories = (props) => {
 
             {viewBtn == true ? (
               <span>
-                <NavLink to="/products">View All</NavLink>{" "}
+                <NavLink to="/products">
+                  {" "}
+                  <button className="viewbtn"> VIEW ALL</button>
+                </NavLink>{" "}
               </span>
             ) : (
               ""

@@ -25,30 +25,20 @@ const Product = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [loginRedirect, setLoginRedirect] = useState(false);
   const [loader, setLoader] = useState(false);
-  const [pId, setpId] = useState("");
-
   const getUser = localStorage.getItem("authUser");
 
   // data fetched from custom hook writen in useGetRequest file
   const [fetched] = useGetRequest("http://localhost:5000/users");
 
   useEffect(() => {
+    dispatch(getAllProducts());
     setLoader(true);
     setTimeout(() => {
-      dispatch(getAllProducts());
       setLoader(false);
     }, 300);
-    // setProductId(params.id);
-  }, []);
-  useEffect(() => {
-    setpId(products.find((p) => p.id == params.id));
   }, []);
 
-  // const pId = products.find((p) => p.id == params.id);
-
-  // if (pId) {
-  //   console.log(pId);
-  // }
+  const pId = products.find((p) => p.id == params.id);
 
   const handleClick = (product, quantity) => {
     if (getUser) {
@@ -56,7 +46,6 @@ const Product = (props) => {
       dispatch(addToCart(product, quantity));
       setTimeout(() => {
         setQuantity(1);
-        // setNotifyAdd(false);
       }, 1000);
     } else {
       setLoginRedirect(true);
@@ -72,16 +61,12 @@ const Product = (props) => {
             style={{ background: "", margin: ".6rem", padding: ".5rem .5rem" }}
           >
             <Breadcrumb.Item>
-              <Link to="/">HOME </Link>
+              <Link to="/">HOME</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link to="/products">PRODUCTS</Link>
             </Breadcrumb.Item>
-            {/* <Breadcrumb.Item>
-              <Link to={`/product/${pId.id}`}>PRODUCT</Link>
-            </Breadcrumb.Item> */}
             <Breadcrumb.Item>
-              {/* <Link to={`/product/${pId.id}`}> */}
 
               <span
                 style={{
@@ -89,9 +74,8 @@ const Product = (props) => {
                   color: "rgba(0, 36, 33, 1)  ",
                 }}
               >
-                {pId.title}
+                {pId&& pId.title}
               </span>
-              {/* </Link> */}
             </Breadcrumb.Item>
           </Breadcrumb>
 
@@ -102,14 +86,14 @@ const Product = (props) => {
               <div className="cards">
                 {pId ? (
                   <>
-                    <article class="card2 left-p">
-                      <picture class="thumbnail">
+                    <article className="card2 left-p">
+                      <picture className="thumbnail">
                         <img src={img1} alt="A banana that looks like a bird" />
                       </picture>
 
                       <div className="hidden-content">
                         <div>
-                          <h1>{pId.title}</h1>
+                          <h1>{pId?.title}</h1>
                         </div>
                         <div>
                           <p>
@@ -141,7 +125,6 @@ const Product = (props) => {
                             <select
                               style={{ width: "4rem", height: "1.94rem" }}
                               value={quantity}
-                              // onChange={handleSelect}
 
                               onChange={(e) => {
                                 setQuantity(e.target.value);
@@ -190,7 +173,6 @@ const Product = (props) => {
                         style={{
                           display: "flex",
                           padding: ".3rem 0",
-                          // border: "1px solid red",
                         }}
                       >
                         <div
@@ -199,8 +181,7 @@ const Product = (props) => {
                             marginRight: ".5rem",
                             width: "4.2rem",
                             height: "3rem",
-                            // border:"1px solid red"
-                          }}
+                          }}  
                         >
                           <select
                             style={{
@@ -209,7 +190,6 @@ const Product = (props) => {
                               borderRadius: "1rem",
                             }}
                             value={quantity}
-                            // onChange={handleSelect}
 
                             onChange={(e) => {
                               setQuantity(e.target.value);
@@ -239,11 +219,8 @@ const Product = (props) => {
               </div>
             </div>
           </div>
-          {/* {fetched &&
-          fetched.map((item) => {
-            return <p key={item.id}>{item.Name}</p>;
-          })
-        } */}
+          
+  
           <Categories
             heading={"Related Products"}
             btn={"Add To Cart"}

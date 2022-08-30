@@ -24,6 +24,7 @@
     "react-scroll-to-top": "^3.0.0",
     "react-scrollbars-custom": "^4.1.0",
     "react-simple-image-slider": "^2.4.1",
+    "react-simple-navbar": "^1.0.5",
     "react-slick": "^0.29.0",
     "react-slider-responsive": "^1.0.1",
     "react-toastify": "^9.0.5",
@@ -32,6 +33,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11",
     "zustand": "^4.0.0-rc.1"

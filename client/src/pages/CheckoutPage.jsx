@@ -29,16 +29,12 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
   const warning = useWarningModal();
   const openDeleteMessage = useDeleteMessage();
+
   const loginState = useSelector((state) => state.loginReducer);
-
-  // console.log(authUser); // this is only running
-  // console.log(loginState);
-
+  
   const cartState = useSelector((state) => state.cartReducer);
   const { cartItems } = cartState;
-
   const orderState = useSelector((state) => state.orderReducer);
-
   const { orderItems } = orderState;
 
   const [delivery, setDelivery] = useState(0);
@@ -52,6 +48,11 @@ const CheckoutPage = () => {
   const [userState, setUserState] = useState([]);
   const [placed, setPlaced] = useState(false);
 
+  useEffect(() => {
+   console.log('CHECKOUT PAGE RENDERRING')
+  }, [])
+  
+
   // const fetchedUser = jsonData.find((u) => u.email === JSON.parse(authUser));
   const [fetchedUser, setFetchedUser] = useState(
     jsonData.find((u) => u.email === JSON.parse(authUser))
@@ -59,13 +60,11 @@ const CheckoutPage = () => {
 
   const fetchUsers = () => {
     axios.get("http://localhost:5000/users").then((res) => {
-      c(res.data);
       setJsonData(res.data);
     });
   };
 
   useEffect(() => {
-    console.count("running once");
     fetchUsers();
   }, [],[deliveryAddress]);
 
@@ -75,7 +74,6 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     setFetchedUser(jsonData?.find((u) => u.email === JSON.parse(authUser)));
-    console.log("running twice", jsonData);
   }, [jsonData]);
 
   // console.log(fetchedUser)
@@ -97,7 +95,6 @@ const CheckoutPage = () => {
   //   ONCHANGE HANDLER
   const handleInput = (e) => {
     let { name, value } = e.target;
-    test(`${name}---${value}`);
     setFormData({ ...formData, [name]: value });
   };
   //   ONCHANGE HANDLER
@@ -183,12 +180,9 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     const { id, ...rest } = userState;
-    c(rest.orders);
     setAllOrders(rest.orders);
-    c(id);
     if (id) {
       axios.get(`http://localhost:5000/users/${id}`).then((res) => {
-        c(res.data);
         // setAllOrders(res.data.orders)
       });
     }
@@ -211,7 +205,6 @@ const CheckoutPage = () => {
 
     const getO = () => {
       axios.get(`http://localhost:5000/users/${id}`).then((res) => {
-        c(res.data.orders);
         setAllOrders(res.data.orders);
       });
     };
@@ -230,7 +223,7 @@ const CheckoutPage = () => {
           orders: [items , {orders}],
           status:"Pending"
         })
-        .then((res) => c("res", res));
+        // .then((res) => c("res", res));
     };
     postOrders();
     // dispatch(addOrders(items,orderAddress));
@@ -271,12 +264,17 @@ const CheckoutPage = () => {
 
   return (
     <>
+     {/* Address update is not working on checkout page  */}
+     {/* My orders page Not working - not renderring the data */}
+     
+     
+
       <main className="checkout-wrapper">
         {cartItems.length !== 0 ? (
-          <div>
+          <div> 
             <section className="checkout-section">
               <div className="left">
-                <h1>UPDATE SHIPPING ADDRESS </h1>
+                <h1 style={{fontWeight:"bolder"}}>UPDATE SHIPPING ADDRESS </h1>
                 <div>
                   <form
                     className="checkout-form"
