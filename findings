@@ -1,0 +1,58 @@
+// This is how the schema should be for orders.
+// const orders = [
+//   {
+//     id : 001,
+//     order:[
+//       // ORDER 1
+//       {
+//         id: 0001,
+//         address : "address .  . . . . ",
+//         totalPrice : 17888,
+//         items: [
+//           {
+//             title: "Music Instruments",
+//             id: 7,
+//             description:
+//               "We are having wide variety Musical Instruments from acoustic guitars to tablas",
+//             quantity: 3,
+//             price: 1299,
+//             prices: 3897,
+//           }
+//         ],
+//       },
+//       // ORDER 1
+
+//       // ORDER 2
+//       {
+//         id: 0001,
+//         address : "address .  . . . . ",
+//         totalPrice : 17888,
+//         items: [
+//           {
+//             title: "Music Instruments",
+//             id: 7,
+//             description:
+//               "We are having wide variety Musical Instruments from acoustic guitars to tablas",
+//             quantity: 3,
+//             price: 1299,
+//             prices: 3897,
+//           },
+//           {
+//             title: "Music Instruments",
+//             id: 7,
+//             description:
+//               "We are having wide variety Musical Instruments from acoustic guitars to tablas",
+//             quantity: 3,
+//             price: 1299,
+//             prices: 3897,
+//           },
+//         ],
+//       },
+
+//       // ORDER 1
+
+
+//     ]
+    
+//   },
+// ];
